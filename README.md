@@ -10,11 +10,11 @@ None credit Goes TO :
 
 2.  Arya : Creating lIghtning fast versions of first drafts. 
 
-3.  Kiran : Making everything that works in the group. Most of the thing that wrks in the grouo is due to her.
+3.  Kiran : Making everything that works in the group. Most of the thing that works in the group is due to her.
 
 4.  A**** : Dark side of the force.
 
-Guest Appearance : Nidhi ** (Reading a paper that is as difficult as solving sat instance of single variable).
+Guest Appearance : Nidhi ** (Reading a paper that is as difficult as solving sat instance of a single variable).
 
 Please avoid use of this directory as much as possible. You might be in danger of Radioactive radiations.
 
