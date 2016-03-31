@@ -3,7 +3,8 @@ For Game Theory IISc
 
 This Project is for the cost sharing cabs in the city and will try to get the better results than the Shapley value (Possibly). 
 
-Thanks Goes TO : 
+None credit Goes TO : 
+
 1.  Miss Pooja : For leaving the group in the middle and
                  not even telling the Co-Founder of the group.
 
