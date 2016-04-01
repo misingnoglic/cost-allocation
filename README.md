@@ -3,6 +3,14 @@ For Game Theory IISc
 
 This Project is for the cost sharing cabs in the city and will try to get the better results than the Shapley value (Possibly). 
 
+Thanks 
+Guide :
+Prof BRO-MAN 
+
+TA helper :
+
+Miss B.Parlor (B for beauty) 
+
 None credit Goes TO : 
 
 1.  Miss Pooja : For leaving the group in the middle and
