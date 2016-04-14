@@ -13,7 +13,7 @@
 _Bool nondet_bool();
 unsigned int nondet_uint();
 
-typedef unsigned __CPROVER_bitvector[M] bitvector; 
+//typedef unsigned __CPROVER_bitvector[M] bitvector; 
 
 unsigned int  nondet (){  
   unsigned int num = nondet_uint();
@@ -41,6 +41,7 @@ int  main()
 
  {    
 
+     _Bool C1;
     unsigned int  i , j , k, l , mi , alpha ;
     double totald1[n1] , totald2[n2] = {} , irDist1[n1] = {}, irDist2[n2] = {}, costd1[n1]  = {} , costd2[n2] = {};
     double totalCost1[n1] , totalCost2[n2];
@@ -157,9 +158,10 @@ for (i = 0; i < n2 ; i++) {
 C1 = 1;
 // Sir Constrints 
 for ( i=0;i<n1;i++) {
-        C1 = C1 && (del[i] >= costd1);
+        C1 = C1 && (del[i] >= costd1[i]);
 }
-  __CPROVER_assert(!(C1) , "Graph that satisfy friendZoned model exists");  
+ 
+__CPROVER_assert(!(C1) , "Cost distribution exists for the current path");  
  
 }
 
