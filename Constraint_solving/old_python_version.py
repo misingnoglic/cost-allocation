@@ -1,8 +1,4 @@
-import math
-from random import randint
 
-def distance(x1,y1,x2,y2):
-	return math.hypot(x2 - x1, y2 - y1)
 
 
 #--------------------------------------------------------------------
@@ -34,16 +30,16 @@ def main():
 	totalCost2 = range(n2) 
 
 	# Define Alpha to be an Unsigned Int
-	aplha = randint(1,10)
+	aplha = 1; #Fix this
 
 	## CAB 1 the OPTIMAL COST
 
 	for  i in range(n1):
 		if (i != n1):
-			dist = distance (cab1[i][0] , cab1[i][1] ,cab1[i+1][0],cab1[i+1][1])
+			dist = sqrt( (cab1[i][0] - cab1[i+1][0])**2 + (cab1[i][1] -cab1[i+1][1])**2 )
 			totaldist1[i] = dist / (i+1)
 		else:
-			dist = distance (cab1[i][0] ,  cab1[i][1] , d[0] ,d[1])
+			dist = sqrt( (cab1[i][0] - d[0])**2 + (cab1[i][1] - d[1])**2 )
 			totaldist1[i] = dist / (i+1)
 
 	for i in range(n1):
@@ -56,10 +52,10 @@ def main():
 
 	for  i in range(n2):
 		if (i != n2):
-			dist = distance (cab2[i][0] , cab2[i][1] ,cab2[i+1][0],cab2[i+1][1])
+			dist = sqrt( (cab2[i][0] - cab2[i+1][0])**2 + (cab2[i][1] - cab2[i+1][1])**2 )
 			totaldist1[i] = dist / (i+1)
 		else:
-			dist = distance (cab2[i][0] ,  cab2[i][1] , d[0] ,d[1])
+			dist = sqrt( (cab2[i][0] - d[0])**2 + (cab2[i][1] - d[1])**2 )
 			totaldist1[i] = dist / (i+1)
 
 	for i in range(n2):
@@ -97,7 +93,7 @@ def main():
 
 	for i in range(n2):
 		if (i == 0): 
-			totalCost2[i] = costd2[i]
+			totalCost2[i] = costd2[i];
 		else:
 			totalCost2[i] = costd2[i] + ( (i) * irDist2[i])
 
