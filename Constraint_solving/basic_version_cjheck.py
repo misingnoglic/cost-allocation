@@ -12,15 +12,15 @@ def distance(x1,y1,x2,y2):
 def main():
 
 	cabs = 2
-	n1 = 4
+	n1 = 2
 	n2 = 3
 	C1 = True
 	C2 = True
 
-	cab1 = [(2,2), (1,1), (1,0) , (1,-1)]
-	cab2 = [(3,1), (3,0), (3,-1)]
+	cab1 = [(2,2), (1,1)]
+	#cab2 = [(3,1), (3,0), (3,-1)]
 
-	d = (2,0)
+	d = (0,0)
 
 	totaldist1 = [0 for x in range(n1)]
 	totaldist2 = [0 for x in range(n2)]
@@ -115,12 +115,12 @@ def main():
 
 ## ADD THE LP Code here  : # Sir Constrints
 	for i in range(n1):
-		C1 = C1 and ((alpha * dell[i]) >= totalCost1[i])
+		C1 = C1 and ((alpha * dell[i]) == totalCost1[i])
 
 	for i in range(n2):
-		C2 = C2 and  ((alpha * de2l[i]) >= totalCost2[i])
+		C2 = C2 and  ((alpha * de2l[i]) == totalCost2[i])
 
-        assert   C1
+        assert not C1
         #assert  not C2
 
         for i in range(n1):
