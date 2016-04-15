@@ -14,6 +14,8 @@ def main():
 	cabs = 2
 	n1 = 4
 	n2 = 3
+	C1 = True 
+	C2 = True 
 
 	cab1 = [(2,2), (1,1), (1,0) , (1,-1)]
 	cab2 = [(3,1), (3,0), (3,-1) ]
@@ -33,13 +35,16 @@ def main():
 	totalCost1 = range(n1)
 	totalCost2 = range(n2) 
 
+	dell = range(n1)
+	de2l = range(n2)
+	
 	# Define Alpha to be an Unsigned Int
-	aplha = randint(1,10)
+	alpha = randint(1,10)
 
 	## CAB 1 the OPTIMAL COST
 
 	for  i in range(n1):
-		if (i != n1):
+		if (i != (n1 - 1) ):
 			dist = distance (cab1[i][0] , cab1[i][1] ,cab1[i+1][0],cab1[i+1][1])
 			totaldist1[i] = dist / (i+1)
 		else:
@@ -55,7 +60,7 @@ def main():
 	## CAB 2 the OPTIMAL COST
 
 	for  i in range(n2):
-		if (i != n2):
+		if (i != (n2 - 1)):
 			dist = distance (cab2[i][0] , cab2[i][1] ,cab2[i+1][0],cab2[i+1][1])
 			totaldist1[i] = dist / (i+1)
 		else:
@@ -64,7 +69,7 @@ def main():
 
 	for i in range(n2):
 		costd2[i] = costd2[i] + totaldist2[i]
-		for j in range(i+1,n1):
+		for j in range(i+1,n2):
 			costd2[i] = costd2[i] + totaldist2[j]
 			costd2[i] = alpha * costd2[i]
 
@@ -73,18 +78,18 @@ def main():
 	irDist1[0] = 0;
 
 	for i in range(n1 -1):
-		de1 = sqrt( (cab1[i][0] - cab1[i+1][0])**2 + (cab1[i][1] - cab1[i][1])**2 )
-		de2 = sqrt( (cab1[i + 1][0] - d[0])**2  + (cab1[i + 1][1] - d[1])**2 )
-		del[i] = sqrt( (cab1[i][0] - d[0])**2 + (cab1[i][1] - d[1])**2 )
-		irDist1[i + 1] = alpha * (de1 + de2 - del[i])
+		de1 = distance( cab1[i][0] ,cab1[i][1], cab1[i+1][0],cab1[i][1])
+		de2 = distance ( cab1[i + 1][0], cab1[i + 1][1] , d[0] ,d[1])
+		dell[i] = distance( cab1[i][0] , cab1[i][1] , d[0] , d[1])
+		irDist1[i + 1] = alpha * (de1 + de2 - dell[i])
 
 	# IR Cost for cab 2
 	irDist2[0] = 0;
 
 	for i in range(n2 -1):
-		de1 = sqrt((cab2[i].x - cab2[i+1].x) * (cab2[i].x - cab2[i+1].x) + (cab2[i].y - cab2[i].y) *(cab2[i].y - cab2[i + 1].y))
-		de2 = sqrt((cab2[i + 1].x - d.x) * (cab2[i + 1].x - d.x) + (cab2[i + 1].y - d.y) * (cab2[i + 1].y - d.y))
-		de2l[i] = sqrt((cab2[i].x - d.x) * (cab2[i].x - d.x) + (cab2[i].y - d.y) * (cab2[i].y - d.y))
+		de1 = distance( cab2[i][0] ,cab2[i][1], cab2[i+1][0],cab2[i][1])
+		de2 = distance ( cab2[i + 1][0], cab2[i + 1][1] , d[0] ,d[1])
+		de2l[i] = distance( cab2[i][0] , cab2[i][1] , d[0] , d[1])
 		irDist2[i] = alpha * (de1 + de2 - de2l[i])
 
 
@@ -102,9 +107,15 @@ def main():
 			totalCost2[i] = costd2[i] + ( (i) * irDist2[i])
 
 
-## ADD THE LP Code here 
-######################################################################
+## ADD THE LP Code here  : # Sir Constrints 
+	for i in range(n1):
+		C1 = C1 and (dell[i] >= costd1[i])
 
+	for i in range(n2):
+		C2 = C2 and (de2l[i] >= costd2[i]) 
+
+	assert(not(C1 == True), " First cab satisfies the Constraint")
+	assert(not(C2 == True), " Second cab satisfies the Constraint")
 
 
 #---------------------------------------------------------------------
