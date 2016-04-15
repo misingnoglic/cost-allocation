@@ -111,5 +111,5 @@ def main():
  # Main Ends 
 #----------
 
-
-main()
+if __name__ == "__main__":
+    main()
