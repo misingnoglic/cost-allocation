@@ -1,0 +1,1008 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font than Computer Modern for most use cases
+    \usepackage{palatino}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{cost-allocation-breaks}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Ride Share Allocation}
+
+\subsection{Implementation of Gopalakrishnan et al.(2016) Algorithm}
+
+    This algorithm intake a list of passengers and their destination, and
+designs a specific graph who's max flow min cost reduction is isomorphic
+to the best route to take.
+
+The biggest problem is that this algorithm assumes uncapacitated
+vehicles, and takes the pickup order as inputted. For the first problem
+we can assume now that this is a bus-sharing problem (think Google
+sending shuttles to pick up their employees), and for the second we can
+do some sorting on the input. To turn the algorithm into returning paths
+for capacitated vehicles, we would need to modify the
+max\_flow\_min\_cost algorithm for a graph, which is fairly
+complicated/involved.
+
+Code can be found \href{www.github.com/misingnoglic/cost-allocation}{on
+Arya's Github}
+
+Authors: Arya Boudaie; Kiranmayi P; Nidhi Rathi.
+
+    \subsubsection{Backend Logic Code:}
+
+This part of the code deals with backend functions. Feel free to just
+read the comments under the function headers, or just skip to Main
+Algorithm
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n}{\PYZus{}\PYZus{}author\PYZus{}\PYZus{}} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Arya}\PY{l+s+s2}{\PYZdq{}}
+         \PY{k+kn}{import} \PY{n+nn}{networkx} \PY{k+kn}{as} \PY{n+nn}{nx} \PY{c+c1}{\PYZsh{} Graph Library}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt} \PY{c+c1}{\PYZsh{} Plotting library}
+         \PY{k+kn}{from} \PY{n+nn}{matplotlib.colors} \PY{k+kn}{import} \PY{n}{cnames}
+         \PY{k+kn}{from} \PY{n+nn}{itertools} \PY{k+kn}{import} \PY{n}{cycle}
+         \PY{k+kn}{import} \PY{n+nn}{random}
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{k}{def} \PY{n+nf}{new\PYZus{}round}\PY{p}{(}\PY{n}{num}\PY{p}{,} \PY{n}{digits}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    Because nx.nextwork\PYZus{}simplex doesnt work for }
+         \PY{l+s+sd}{    floats, this function just multiplies num}
+         \PY{l+s+sd}{    by digits and turns in into an integer}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{k}{return} \PY{n+nb}{int}\PY{p}{(}\PY{n}{num}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{n}{digits}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{node\PYZus{}numbers}\PY{p}{(}\PY{n}{node}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    Numbers the nodes, to allow for sorting }
+         \PY{l+s+sd}{    when printing them}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             
+             \PY{k}{if} \PY{n}{node}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k}{return} \PY{l+m+mi}{0}
+             \PY{k}{if} \PY{n}{node}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sink}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k}{return} \PY{l+m+mi}{1}
+             \PY{k}{if} \PY{n}{node}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{destination}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k}{return} \PY{n+nb}{float}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{node}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{d}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k}{print} \PY{n}{node}
+                 \PY{n}{cost}\PY{o}{=} \PY{l+m+mi}{2}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{n+nb}{int}\PY{p}{(}\PY{n}{node}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{node}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{out}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{cost}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+                 \PY{k}{return} \PY{n}{cost}
+         
+         \PY{k}{def} \PY{n+nf}{sort\PYZus{}nodes}\PY{p}{(}\PY{n}{nodes}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Sorts a list of nodes\PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{k}{return} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{nodes}\PY{p}{,}\PY{n}{key}\PY{o}{=}\PY{n}{node\PYZus{}numbers}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{sort\PYZus{}edges}\PY{p}{(}\PY{n}{edges}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}sorts a list of edges\PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{k}{return} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{edges}\PY{p}{,} \PY{n}{key} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{node\PYZus{}numbers}\PY{p}{(}\PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \subsubsection{Basic functions integral to the construction}
+
+These are the building functions that are used in the algorithm. We can
+replace them, as the main algorithm doesn't make any assumptions on
+these. It might be interesting to use other distance functions for
+instance.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{k+kn}{from} \PY{n+nn}{math} \PY{k+kn}{import} \PY{n}{sqrt}
+         \PY{k}{def} \PY{n+nf}{distance}\PY{p}{(}\PY{n}{node1}\PY{p}{,}\PY{n}{node2}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Simple euclidian distance formula between two points\PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{x1} \PY{o}{=} \PY{n}{node1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{x2} \PY{o}{=} \PY{n}{node2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{y1} \PY{o}{=} \PY{n}{node1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n}{y2} \PY{o}{=} \PY{n}{node2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{k}{return} \PY{n}{sqrt}\PY{p}{(}\PY{p}{(}\PY{n}{x2}\PY{o}{\PYZhy{}}\PY{n}{x1}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{p}{(}\PY{n}{y2}\PY{o}{\PYZhy{}}\PY{n}{y1}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{max\PYZus{}distance}\PY{p}{(}\PY{n}{points}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Gets the max distance between two points in the graph\PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{current} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{node1} \PY{o+ow}{in} \PY{n}{points}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{node2} \PY{o+ow}{in} \PY{n}{points}\PY{p}{:}
+                     \PY{n}{d} \PY{o}{=} \PY{n}{distance}\PY{p}{(}\PY{n}{node1}\PY{p}{,}\PY{n}{node2}\PY{p}{)} \PY{c+c1}{\PYZsh{} distance from n1 \PYZam{} n2}
+                     \PY{k}{if} \PY{n}{d}\PY{o}{\PYZgt{}}\PY{n}{current}\PY{p}{:} 
+                         \PY{n}{current}\PY{o}{=}\PY{n}{d} \PY{c+c1}{\PYZsh{} store larger distance}
+             \PY{k}{return} \PY{n}{current}
+         
+         \PY{c+c1}{\PYZsh{} Used in main algorithm to see which m\PYZsq{} has lowest cost}
+         \PY{k}{def} \PY{n+nf}{cost\PYZus{}of\PYZus{}min\PYZus{}cost}\PY{p}{(}\PY{n}{G}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    Given a graph, it gives the cost of the paths }
+         \PY{l+s+sd}{    in the max flow min cost over the graph.}
+         \PY{l+s+sd}{    It also returns the paths from source to }
+         \PY{l+s+sd}{    destination as a list, for convenience}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             
+             \PY{c+c1}{\PYZsh{} Gets the max flow min cost path from source to sink}
+             \PY{n}{flow\PYZus{}path} \PY{o}{=} \PY{n}{nx}\PY{o}{.}\PY{n}{max\PYZus{}flow\PYZus{}min\PYZus{}cost}\PY{p}{(}\PY{n}{G}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sink}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{weight}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} The beginning has the directions for where each cab starts}
+             \PY{n}{beginning} \PY{o}{=} \PY{n}{flow\PYZus{}path}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} 
+             
+             \PY{n}{total\PYZus{}cost} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{c+c1}{\PYZsh{} each node which the flow\PYZus{}path indicates to go}
+             \PY{n}{start\PYZus{}paths} \PY{o}{=} \PY{p}{[}\PY{n}{n}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n}{beginning}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{n}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{]} 
+             \PY{n}{paths} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             
+             \PY{c+c1}{\PYZsh{} For each node that a cab goes to in order to start}
+             \PY{k}{for} \PY{n}{start\PYZus{}node} \PY{o+ow}{in} \PY{n}{start\PYZus{}paths}\PY{p}{:} 
+                 \PY{n}{path} \PY{o}{=} \PY{p}{[}\PY{n}{start\PYZus{}node}\PY{p}{]}
+                 \PY{n}{curr\PYZus{}node}\PY{o}{=}\PY{n}{start\PYZus{}node}
+                 \PY{n}{path\PYZus{}cost} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{c+c1}{\PYZsh{} Loop through the path until you reach the destination}
+                 \PY{k}{while} \PY{n}{curr\PYZus{}node}\PY{o}{!=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{destination}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} 
+                     \PY{c+c1}{\PYZsh{} Node that current node travels to}
+                     \PY{n}{next\PYZus{}node} \PY{o}{=} \PY{p}{[}\PY{n}{n} \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} 
+                                  \PY{n}{flow\PYZus{}path}\PY{p}{[}\PY{n}{curr\PYZus{}node}\PY{p}{]}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)} 
+                                  \PY{k}{if} \PY{n}{n}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} 
+                     \PY{c+c1}{\PYZsh{} Add the cost of the edge from the current node }
+                     \PY{c+c1}{\PYZsh{}to the next node}
+                     \PY{n}{path\PYZus{}cost} \PY{o}{+}\PY{o}{=} \PY{n}{G}\PY{o}{.}\PY{n}{edge}\PY{p}{[}\PY{n}{curr\PYZus{}node}\PY{p}{]}\PY{p}{[}\PY{n}{next\PYZus{}node}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} 
+                     \PY{c+c1}{\PYZsh{} Switch current node to be the node travelled to}
+                     \PY{n}{curr\PYZus{}node} \PY{o}{=} \PY{n}{next\PYZus{}node} 
+                     \PY{k}{if} \PY{n}{G}\PY{o}{.}\PY{n}{node}\PY{p}{[}\PY{n}{curr\PYZus{}node}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{passenger in}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} 
+                         \PY{n}{path}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{curr\PYZus{}node}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} When that node is finished, add it to the total cost }
+                 \PY{c+c1}{\PYZsh{} and start over}
+                 \PY{n}{total\PYZus{}cost} \PY{o}{+}\PY{o}{=} \PY{n}{path\PYZus{}cost} 
+                 \PY{c+c1}{\PYZsh{} add destination to end of path}
+                 \PY{n}{paths}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{path}\PY{o}{+}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{destination}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} 
+             \PY{k}{return} \PY{n}{total\PYZus{}cost}\PY{p}{,} \PY{n}{paths}  
+\end{Verbatim}
+
+    \section{Main Algorithm}
+
+In the code I include comments on what part of the paper is being
+represented by the code
+
+\begin{enumerate}[1.]
+\item
+  The algorithm takes a list of passengers (x,y position tuples), and a
+  destination (x,y) tuple. Passengers are listed in pickup order
+\item
+  From that, it creates a source node, a sink node, a destination node,
+  and two nodes for every passenger (an in and an out node)
+\item
+  For each passenger it adds an edge from its in node to its out node
+  (cost 0, capacity 1)
+\item
+  Add an edge from the source to every in node (cost 0, capacity 1)
+\item
+  Calculate a value L, which is larger than the maximum distance between
+  two points multiplied by the number of passengers.
+\item
+  Create an edge from each out node to the destination with the cost
+  being the distance between the passenger and the destination
+\item
+  Add an edge from each out/in pair (where the index of the out is less
+  than the index of the in) where the cost is the distance between the
+  two passengers minus L.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{k}{def} \PY{n+nf}{generate\PYZus{}graph}\PY{p}{(}\PY{n}{passengers}\PY{p}{,} \PY{n}{destination}\PY{p}{,} 
+                            \PY{n}{annotate}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} \PY{n}{complete}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} \PY{n}{mistake}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    This code generates the graph described by Raga in }
+         \PY{l+s+sd}{    section 7.3 steps 1 through 5.}
+         \PY{l+s+sd}{    The code is annotated with what it is doing in comments}
+         \PY{l+s+sd}{    passengers = List of x,y coordinates for each passenger}
+         \PY{l+s+sd}{    destination = x,y tuple with coord. of destination}
+         \PY{l+s+sd}{    annotate=True if you want print statements}
+         \PY{l+s+sd}{    complete=True if you want to do unordered paths}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             
+             \PY{n}{G}\PY{o}{=}\PY{n}{nx}\PY{o}{.}\PY{n}{DiGraph}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} Create a directed graph}
+             
+             \PY{c+c1}{\PYZsh{} The rest of the algorithm closely follows Raga\PYZsq{}s paper}
+             \PY{c+c1}{\PYZsh{} I quote the steps directly}
+             
+             \PY{c+c1}{\PYZsh{} Step 1}
+             \PY{c+c1}{\PYZsh{} \PYZdq{}s and t denote the source and sink vertices, respectively\PYZdq{}}
+             \PY{n}{G}\PY{o}{.}\PY{n}{add\PYZus{}node}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{source}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{type}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{meta}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{G}\PY{o}{.}\PY{n}{add\PYZus{}node}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sink}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{type}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{meta}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Step 2}
+             \PY{c+c1}{\PYZsh{} For each passenger/pickup location u ∈ N , we create }
+             \PY{c+c1}{\PYZsh{} two vertices and an edge: an entry vertex u\PYZus{}in, an exit }
+             \PY{c+c1}{\PYZsh{} vertex u\PYZus{}out, and an edge of cost 0 and capacity 1 directed}
+             \PY{c+c1}{\PYZsh{} from u\PYZus{}in to u\PYZus{}out. We also create a vertex n+1 }
+             \PY{c+c1}{\PYZsh{} corresponding to the dropoff location.}
+             \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{k}{for} \PY{n}{passenger} \PY{o+ow}{in} \PY{n}{passengers}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} \PYZob{}\PYZcb{}in.format(x) will give the node the name xin, }
+                 \PY{c+c1}{\PYZsh{} for any integer x}
+                 \PY{n}{G}\PY{o}{.}\PY{n}{add\PYZus{}node}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}\PYZcb{}in}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,} \PY{n}{number}\PY{o}{=}\PY{n}{i}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{n}{passenger}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} 
+                            \PY{n}{y}\PY{o}{=}\PY{n}{passenger}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n+nb}{type}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{passenger in}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 \PY{n}{G}\PY{o}{.}\PY{n}{add\PYZus{}node}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}\PYZcb{}out}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{n}{number}\PY{o}{=}\PY{n}{i}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{n}{passenger}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} 
+                            \PY{n}{y}\PY{o}{=}\PY{n}{passenger}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n+nb}{type}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{passenger out}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 \PY{n}{G}\PY{o}{.}\PY{n}{add\PYZus{}edge}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}\PYZcb{}in}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}\PYZcb{}out}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,} \PY{n}{cost}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} 
+                            \PY{n}{capacity}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{i}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+             \PY{n}{G}\PY{o}{.}\PY{n}{add\PYZus{}node}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{destination}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{n}{destination}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{destination}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                        \PY{n+nb}{type}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{destination}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Step 3}
+             \PY{c+c1}{\PYZsh{} We create n edges, one each of cost 0 and capacity 1 from }
+             \PY{c+c1}{\PYZsh{} the source vertex s to each of the entry vertices u\PYZus{}in, }
+             \PY{c+c1}{\PYZsh{} u ∈ N.}
+             \PY{k}{for} \PY{n}{node} \PY{o+ow}{in} \PY{n}{G}\PY{o}{.}\PY{n}{nodes}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{node}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{passenger in}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                     \PY{n}{G}\PY{o}{.}\PY{n}{add\PYZus{}edge}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{source}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{node}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{cost}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{capacity}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Calculating L}
+             \PY{c+c1}{\PYZsh{} passengers + [destination] is the concatonation of the }
+             \PY{c+c1}{\PYZsh{} two lists}
+             \PY{n}{L} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{passengers}\PY{p}{)}\PY{o}{*}\PY{n}{max\PYZus{}distance}\PY{p}{(}\PY{n}{passengers} \PY{o}{+} 
+                                              \PY{p}{[}\PY{n}{destination}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1} 
+             \PY{k}{if} \PY{n}{annotate}\PY{p}{:} \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{L = \PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{L}\PY{p}{)}   
+                 
+             \PY{c+c1}{\PYZsh{} Step 4}
+             \PY{c+c1}{\PYZsh{} We create n edges, one each of cost SuD and capacity 1 }
+             \PY{c+c1}{\PYZsh{} from each of the exit vertices uout, u ∈ N, to the }
+             \PY{c+c1}{\PYZsh{} dropoff vertex n + 1}
+             \PY{k}{for} \PY{n}{node} \PY{o+ow}{in} \PY{n}{G}\PY{o}{.}\PY{n}{nodes}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{node}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{passenger out}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                     \PY{c+c1}{\PYZsh{} Calculating SuD}
+                     \PY{n}{cost} \PY{o}{=} \PY{n}{distance}\PY{p}{(}\PY{n}{destination}\PY{p}{,} \PY{p}{(}\PY{n}{node}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                                                   \PY{n}{node}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{L} 
+                     
+                     \PY{k}{if} \PY{n}{mistake}\PY{p}{:} \PY{n}{cost}\PY{o}{+}\PY{o}{=}\PY{n}{L}
+                     \PY{n}{cost} \PY{o}{=} \PY{n}{new\PYZus{}round}\PY{p}{(}\PY{n}{cost}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+                     \PY{n}{node\PYZus{}name} \PY{o}{=} \PY{n}{node}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                     \PY{c+c1}{\PYZsh{} Creating the edge with that cost}
+                     \PY{n}{G}\PY{o}{.}\PY{n}{add\PYZus{}edge}\PY{p}{(}\PY{n}{node\PYZus{}name}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{destination}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{cost}\PY{o}{=}\PY{n}{cost}\PY{p}{,} 
+                                \PY{n}{capacity}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)} 
+             \PY{c+c1}{\PYZsh{} Step 5}
+             \PY{c+c1}{\PYZsh{} To encode the pickup order, for each 1 ≤ u \PYZlt{} v ≤ n we }
+             \PY{c+c1}{\PYZsh{} create an edge of cost (SuSv − L) and capacity 1 directed }
+             \PY{c+c1}{\PYZsh{} from u\PYZus{}out to v\PYZus{}in, where L is a sufficiently large number }
+             \PY{c+c1}{\PYZsh{} satisfying L \PYZgt{} 2*max [u,v∈N∪\PYZob{}n+1\PYZcb{} SuSv].    }
+             
+             \PY{k}{for} \PY{n}{u} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{passengers}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} For each u}
+                 \PY{c+c1}{\PYZsh{} If we want a complete graph we will do every v, }
+                 \PY{c+c1}{\PYZsh{} otherwise just v\PYZgt{}u}
+                 \PY{k}{if} \PY{n}{complete}\PY{p}{:} 
+                     \PY{n}{start} \PY{o}{=} \PY{l+m+mi}{1}
+                 \PY{k}{else}\PY{p}{:} 
+                     \PY{n}{start} \PY{o}{=} \PY{n}{u}\PY{o}{+}\PY{l+m+mi}{1}
+                 \PY{k}{for} \PY{n}{v} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{start}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{passengers}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{u}\PY{o}{!=}\PY{n}{v}\PY{p}{:}
+                         \PY{n}{G}\PY{o}{.}\PY{n}{add\PYZus{}edge}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}\PYZcb{}out}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{u}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}\PYZcb{}in}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{v}\PY{p}{)}\PY{p}{,} 
+                                    \PY{n}{cost}\PY{o}{=}\PY{n}{new\PYZus{}round}\PY{p}{(}\PY{n}{distance}\PY{p}{(}
+                                     \PY{n}{passengers}\PY{p}{[}\PY{n}{u}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{passengers}\PY{p}{[}\PY{n}{v}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{L}\PY{p}{,} 
+                                                   \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{capacity}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)} 
+             \PY{c+c1}{\PYZsh{} pass this graph to step 6}
+             \PY{k}{return} \PY{n}{allocation}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{annotate}\PY{o}{=}\PY{n}{annotate}\PY{p}{)} 
+\end{Verbatim}
+
+    \subsubsection{Step 6:}
+
+Finally, it creates a separate graph for each of n passengers, with each
+one having an edge from destination to sink with cost 0 and capacity m'
+(for each value m' from 1 to n).
+
+After the graphs are generated, it iterates over each graph and
+calculate the cost for n passengers pick up and returns the path with
+minimum cost
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{k}{def} \PY{n+nf}{allocation}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{annotate}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    Given the G in the generate\PYZus{}graph algo, it gives the graph w/}
+         \PY{l+s+sd}{    a node from destination to source m\PYZsq{} with the minimum cost}
+         \PY{l+s+sd}{    for traversing the max flow min cost graph.}
+         \PY{l+s+sd}{    annotate=True if you want print statements}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}        
+             \PY{c+c1}{\PYZsh{} Step 6}
+             \PY{c+c1}{\PYZsh{} We add a final edge of cost 0 and capacity m′ }
+             \PY{c+c1}{\PYZsh{} from the dropoff vertex n + 1 to the}
+             \PY{c+c1}{\PYZsh{} sink vertex t, thereby limiting the maximum flow }
+             \PY{c+c1}{\PYZsh{} in the network to m′ units.}
+             
+             \PY{c+c1}{\PYZsh{} In this implementation, we make n copies of this graph, }
+             \PY{c+c1}{\PYZsh{} and give each one an m\PYZsq{} from i to n}
+             \PY{n}{passengers} \PY{o}{=} \PY{p}{[}\PY{n}{node} \PY{k}{for} \PY{n}{node} \PY{o+ow}{in} \PY{n}{G}\PY{o}{.}\PY{n}{nodes}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)} 
+                           \PY{k}{if} \PY{n}{node}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{passenger in}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{possible\PYZus{}graphs} \PY{o}{=} \PY{p}{[}\PY{n}{G}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{passengers}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+             
+             \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{pg} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{possible\PYZus{}graphs}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} All the different m\PYZsq{} values}
+                 \PY{n}{pg}\PY{o}{.}\PY{n}{add\PYZus{}edge}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{destination}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sink}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{cost}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{capacity}\PY{o}{=}\PY{n}{i}\PY{p}{)} 
+                 
+             
+             \PY{c+c1}{\PYZsh{} Now over these graphs we have to find the one }
+             \PY{c+c1}{\PYZsh{} with the lowest cost in the min cost max flow algorithm}
+             \PY{c+c1}{\PYZsh{} In other words which m\PYZsq{} gives the lowest cost}
+             \PY{n}{min\PYZus{}cost} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{min\PYZus{}flow\PYZus{}graph} \PY{o}{=} \PY{n+nb+bp}{None}
+             \PY{n}{costs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{paths} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{optimal} \PY{o}{=} \PY{l+m+mi}{0}
+             
+             \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{pg} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{possible\PYZus{}graphs}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{annotate}\PY{p}{:} \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}\PYZcb{} cabs: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{index}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}
+                 \PY{c+c1}{\PYZsh{} For each possible graph, calculate the cost. }
+                 \PY{n}{c}\PY{p}{,} \PY{n}{path} \PY{o}{=} \PY{n}{cost\PYZus{}of\PYZus{}min\PYZus{}cost}\PY{p}{(}\PY{n}{pg}\PY{p}{)}
+                 \PY{n}{c} \PY{o}{=} \PY{n}{new\PYZus{}round}\PY{p}{(}\PY{n}{c}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+                 \PY{n}{paths}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{path}\PY{p}{)}
+                 \PY{n}{costs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{annotate}\PY{p}{:}
+                     \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{path: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{path}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                     \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cost: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{c}\PY{o}{/}\PY{l+m+mf}{10000.0}
+                 
+                 \PY{c+c1}{\PYZsh{} If the cost is less than previous graphs, store it}
+                 \PY{k}{if} \PY{n}{c}\PY{o}{\PYZlt{}}\PY{n}{min\PYZus{}cost}\PY{p}{:}
+                     \PY{n}{min\PYZus{}cost}\PY{o}{=}\PY{n}{c}
+                     \PY{n}{min\PYZus{}flow\PYZus{}graph}\PY{o}{=}\PY{n}{pg}
+                     \PY{n}{optimal} \PY{o}{=} \PY{n}{index}
+             \PY{k}{if} \PY{n}{annotate}\PY{p}{:} \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Optimal path with \PYZob{}\PYZcb{} cabs}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+                     \PY{n}{optimal}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{paths}\PY{p}{[}\PY{n}{optimal}\PY{p}{]}
+             \PY{k}{return} \PY{n}{min\PYZus{}flow\PYZus{}graph}\PY{p}{,}\PY{n}{paths}\PY{p}{[}\PY{n}{optimal}\PY{p}{]}
+\end{Verbatim}
+
+    \subsubsection{Frontend Functions}
+
+The following functions allow the user to interract with the algorithm
+and visually inspect the output. (They are not commented, as they aren't
+important to the algorithm.)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{k}{def} \PY{n+nf}{allocation\PYZus{}interractive}\PY{p}{(}\PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    Interractive version of the function}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{players} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{raw\PYZus{}input}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{How many players are there: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+             \PY{n}{player\PYZus{}coordinates} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{players}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{coord} \PY{o}{=} \PY{n+nb}{raw\PYZus{}input}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{l+s+s1}{What are the x and y }
+         \PY{l+s+s1}{                          coordinates for player \PYZob{}\PYZcb{}: }\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{coord} \PY{o}{=} \PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{coord}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+                 \PY{n}{player\PYZus{}coordinates}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{coord}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{coord}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{n}{destination} \PY{o}{=} \PY{n+nb}{raw\PYZus{}input}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{l+s+s1}{What are the x and y coordinates }
+         \PY{l+s+s1}{                                for the destination: }\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{)}
+             \PY{n}{destination} \PY{o}{=} \PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{destination}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+             \PY{k}{return} \PY{n}{generate\PYZus{}graph}\PY{p}{(}\PY{n}{player\PYZus{}coordinates}\PY{p}{,} 
+                             \PY{p}{(}\PY{n}{destination}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{destination}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{draw\PYZus{}paths}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{paths}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Graph of optimal routes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    Given a graph and paths through the graph, it plots }
+         \PY{l+s+sd}{    them w/ arrows. If path not given, it gets the path with }
+         \PY{l+s+sd}{    min cost max flow.}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{k}{if} \PY{n}{paths} \PY{o}{==} \PY{n+nb+bp}{None}\PY{p}{:}
+                 \PY{n}{paths} \PY{o}{=} \PY{n}{cost\PYZus{}of\PYZus{}min\PYZus{}cost}\PY{p}{(}\PY{n}{G}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             
+             \PY{c+c1}{\PYZsh{} Way of getting random colors}
+             \PY{n}{color\PYZus{}names} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gbrcmyk}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{new\PYZus{}colors}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+             \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{paths}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n+nb}{len}\PY{p}{(}\PY{n}{color\PYZus{}names}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{new\PYZus{}colors} \PY{o}{=} \PY{p}{[}\PY{n}{c} \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{cnames}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)} 
+                               \PY{k}{if} \PY{o+ow}{not}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{light}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{c}\PY{p}{)}\PY{p}{]}
+                 \PY{n}{random}\PY{o}{.}\PY{n}{shuffle}\PY{p}{(}\PY{n}{new\PYZus{}colors}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}iterator through colors (so it will repeat)}
+             \PY{n}{colors} \PY{o}{=} \PY{n}{cycle}\PY{p}{(}\PY{n}{color\PYZus{}names}\PY{o}{+}\PY{n}{new\PYZus{}colors}\PY{p}{)} 
+             
+             \PY{c+c1}{\PYZsh{} plot labels}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Y}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} 
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{title}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ \PYZhy{} \PYZob{}\PYZcb{} cabs}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{paths}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} add all the x,y points of the passengers}
+             \PY{n}{xs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{ys} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n}{G}\PY{o}{.}\PY{n}{nodes}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{n}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{passenger in}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                     \PY{n}{xs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{n}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                     \PY{n}{ys}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{n}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xs}\PY{p}{,}\PY{n}{ys}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} plot the destination}
+             \PY{n}{destination} \PY{o}{=} \PY{n}{G}\PY{o}{.}\PY{n}{node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{destination}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{destination}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{destination}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{xs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{destination}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n}{ys}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{destination}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} determine the axis}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{p}{[}\PY{n+nb}{min}\PY{p}{(}\PY{n}{xs}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{max}\PY{p}{(}\PY{n}{xs}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{min}\PY{p}{(}\PY{n}{ys}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{max}\PY{p}{(}\PY{n}{ys}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             
+             \PY{k}{for} \PY{n}{path} \PY{o+ow}{in} \PY{n}{paths}\PY{p}{:} \PY{c+c1}{\PYZsh{} for each path}
+                 \PY{n}{c} \PY{o}{=} \PY{n}{colors}\PY{o}{.}\PY{n}{next}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} choose a random color}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{path}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} for each pair in the path}
+                     \PY{n}{from\PYZus{}node} \PY{o}{=} \PY{n}{G}\PY{o}{.}\PY{n}{node}\PY{p}{[}\PY{n}{path}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} 
+                     \PY{n}{to\PYZus{}node} \PY{o}{=} \PY{n}{G}\PY{o}{.}\PY{n}{node}\PY{p}{[}\PY{n}{path}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+                     \PY{k}{try}\PY{p}{:}
+                         \PY{c+c1}{\PYZsh{} draw an arrow from from\PYZus{}node to to\PYZus{}node}
+                         \PY{n}{plt}\PY{o}{.}\PY{n}{arrow}\PY{p}{(}\PY{n}{from\PYZus{}node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{from\PYZus{}node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                                   \PY{p}{(}\PY{n}{to\PYZus{}node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{from\PYZus{}node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}  
+                               \PY{p}{(}\PY{n}{to\PYZus{}node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{from\PYZus{}node}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,} 
+                                   \PY{n}{head\PYZus{}width}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{head\PYZus{}length}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{,} 
+                               \PY{n}{length\PYZus{}includes\PYZus{}head}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,}\PY{n}{fc}\PY{o}{=}\PY{n}{c}\PY{p}{,} \PY{n}{ec}\PY{o}{=}\PY{n}{c}\PY{p}{)}
+                     \PY{k}{except}\PY{p}{:} 
+                         \PY{c+c1}{\PYZsh{} if error is thrown, it means that the point }
+                         \PY{c+c1}{\PYZsh{} was repeated}
+                         \PY{k}{continue}
+             
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    Running the cell below allows you to interractively give the program a
+set of passengers and a destination. For example, try the simple case -
+two passengers at (0,0) and (1,0) - destination (2,0)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{c+c1}{\PYZsh{} Run this cell to run the interractive simulation}
+         \PY{n}{a}\PY{p}{,} \PY{n}{paths} \PY{o}{=} \PY{n}{allocation\PYZus{}interractive}\PY{p}{(}\PY{n}{annotate}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+         \PY{n}{draw\PYZus{}paths}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{paths}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+How many players are there: 2
+What are the x and y coordinates for player 1: 0 0
+What are the x and y coordinates for player 2: 1 0
+What are the x and y coordinates for the destination: 2 0
+L = 5.0
+1 cabs:  path:  [['1in', '2in', 'destination']] -- cost:  -8.0
+2 cabs:  path:  [['2in', 'destination'], ['1in', 'destination']] -- cost:  -7.0
+Optimal path with 1 cabs [['1in', '2in', 'destination']]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cost-allocation-breaks_files/cost-allocation-breaks_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{List of all the nodes}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{n}{sort\PYZus{}nodes}\PY{p}{(}\PY{n}{a}\PY{o}{.}\PY{n}{nodes}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}71}]:} [('source', \{'type': 'meta'\}),
+          ('sink', \{'type': 'meta'\}),
+          ('1in', \{'number': 1, 'type': 'passenger in', 'x': 0, 'y': 0\}),
+          ('1out', \{'number': 1, 'type': 'passenger out', 'x': 0, 'y': 0\}),
+          ('2in', \{'number': 2, 'type': 'passenger in', 'x': 1, 'y': 0\}),
+          ('2out', \{'number': 2, 'type': 'passenger out', 'x': 1, 'y': 0\}),
+          ('destination', \{'type': 'destination', 'x': 2, 'y': 0\})]
+\end{Verbatim}
+        
+    \paragraph{List of all the edges}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{c+c1}{\PYZsh{} All the edges in the graph}
+         \PY{n}{sort\PYZus{}edges}\PY{p}{(}\PY{n}{a}\PY{o}{.}\PY{n}{edges}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}72}]:} [('source', '2in', \{'capacity': 1, 'cost': 0\}),
+          ('source', '1in', \{'capacity': 1, 'cost': 0\}),
+          ('1in', '1out', \{'capacity': 1, 'cost': 0\}),
+          ('1out', '2in', \{'capacity': 1, 'cost': -400\}),
+          ('1out', 'destination', \{'capacity': 1, 'cost': -300\}),
+          ('2in', '2out', \{'capacity': 1, 'cost': 0\}),
+          ('2out', 'destination', \{'capacity': 1, 'cost': -400\}),
+          ('destination', 'sink', \{'capacity': 1, 'cost': 0\})]
+\end{Verbatim}
+        
+    \paragraph{Drawing of the constructed graph}
+
+This gets quite complicated with large number of players, but shows the
+graph constructed by the algorithm, with the source, sink, destination,
+and in/out nodes, as well as all the edges. Layout is random.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{n}{nx}\PY{o}{.}\PY{n}{draw}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{with\PYZus{}labels}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cost-allocation-breaks_files/cost-allocation-breaks_20_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{c+c1}{\PYZsh{} The path that should be taken }
+         \PY{c+c1}{\PYZsh{} Starting from the source, a 1 in the node in the dictionary }
+         \PY{c+c1}{\PYZsh{} means send 1 cab there}
+         \PY{n}{nx}\PY{o}{.}\PY{n}{max\PYZus{}flow\PYZus{}min\PYZus{}cost}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sink}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{weight}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}74}]:} \{'1in': \{'1out': 1\},
+          '1out': \{'2in': 1, 'destination': 0\},
+          '2in': \{'2out': 1\},
+          '2out': \{'destination': 1\},
+          'destination': \{'sink': 1\},
+          'sink': \{\},
+          'source': \{'1in': 1, '2in': 0\}\}
+\end{Verbatim}
+        
+    \subsection{More examples}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{n}{passengers} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{]}
+         \PY{n}{destination} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{a}\PY{p}{,} \PY{n}{paths} \PY{o}{=} \PY{n}{generate\PYZus{}graph}\PY{p}{(}\PY{n}{passengers}\PY{p}{,} \PY{n}{destination}\PY{p}{)}
+         \PY{n}{draw\PYZus{}paths}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{paths}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Simple Example}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cost-allocation-breaks_files/cost-allocation-breaks_23_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{n}{passengers} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+         \PY{n}{destination} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{a}\PY{p}{,} \PY{n}{paths} \PY{o}{=} \PY{n}{generate\PYZus{}graph}\PY{p}{(}\PY{n}{passengers}\PY{p}{,} \PY{n}{destination}\PY{p}{)}
+         \PY{n}{draw\PYZus{}paths}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{paths}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Three cabs needed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cost-allocation-breaks_files/cost-allocation-breaks_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{n}{passengers} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+         \PY{n}{destination} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{a}\PY{p}{,} \PY{n}{paths} \PY{o}{=} \PY{n}{generate\PYZus{}graph}\PY{p}{(}\PY{n}{passengers}\PY{p}{,} \PY{n}{destination}\PY{p}{)}
+         \PY{n}{draw\PYZus{}paths}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{paths}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Points in Square}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cost-allocation-breaks_files/cost-allocation-breaks_25_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{n}{passengers} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+         \PY{n}{destination} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{a}\PY{p}{,} \PY{n}{paths} \PY{o}{=} \PY{n}{generate\PYZus{}graph}\PY{p}{(}\PY{n}{passengers}\PY{p}{,} \PY{n}{destination}\PY{p}{)}
+         \PY{n}{draw\PYZus{}paths}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{paths}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Points in hexagon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cost-allocation-breaks_files/cost-allocation-breaks_26_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{n}{passengers} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+         \PY{n}{destination} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{a}\PY{p}{,} \PY{n}{paths} \PY{o}{=} \PY{n}{generate\PYZus{}graph}\PY{p}{(}\PY{n}{passengers}\PY{p}{,} \PY{n}{destination}\PY{p}{)}
+         \PY{n}{draw\PYZus{}paths}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{paths}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hexagon with destination in middle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cost-allocation-breaks_files/cost-allocation-breaks_27_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The below graphs are completely random (except for destination being
+0,0) - feel free to change the variables in the below cell to get
+different graphs. The first random graph will have non optimal paths, as
+the ordering is set, but the second graph shows the paths when we order
+the pickups by distance from destination (largest first).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{c+c1}{\PYZsh{} Constraints for random graphs}
+         \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{50} \PY{c+c1}{\PYZsh{} number of passengers}
+         \PY{n}{min\PYZus{}x} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{30}
+         \PY{n}{max\PYZus{}x} \PY{o}{=} \PY{l+m+mi}{30}
+         \PY{n}{min\PYZus{}y} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{30}
+         \PY{n}{max\PYZus{}y} \PY{o}{=} \PY{l+m+mi}{30}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{n}{passengers} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{n}{min\PYZus{}x}\PY{p}{,}\PY{n}{max\PYZus{}x}\PY{p}{)}\PY{p}{,} 
+                        \PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{n}{min\PYZus{}y}\PY{p}{,}\PY{n}{max\PYZus{}y}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{]}
+         \PY{n}{destination} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{a}\PY{p}{,} \PY{n}{paths} \PY{o}{=} \PY{n}{generate\PYZus{}graph}\PY{p}{(}\PY{n}{passengers}\PY{p}{,} \PY{n}{destination}\PY{p}{)}
+         \PY{n}{draw\PYZus{}paths}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{paths}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{l+s+s1}{Completely random graph }
+         \PY{l+s+s1}{           of \PYZob{}\PYZcb{} passengers}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cost-allocation-breaks_files/cost-allocation-breaks_30_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Here we order the passengers and the paths taken are much more optimal.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{n}{passengers} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{passengers}\PY{p}{,} \PY{n}{key} \PY{o}{=} 
+                             \PY{k}{lambda} \PY{n}{x} \PY{p}{:} \PY{n}{distance}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{destination}\PY{p}{)}\PY{p}{,} 
+                             \PY{n}{reverse}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+         \PY{n}{a}\PY{p}{,} \PY{n}{paths} \PY{o}{=} \PY{n}{generate\PYZus{}graph}\PY{p}{(}\PY{n}{passengers}\PY{p}{,} \PY{n}{destination}\PY{p}{)}
+         \PY{n}{draw\PYZus{}paths}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{paths}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Same graph with sorted passengers}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cost-allocation-breaks_files/cost-allocation-breaks_32_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{The bug we found in the paper}
+
+As described in the presentation, the original cost of the edge from a
+passenger's out node to the destination was just the distance between
+the passenger and the destination. This subtle bug caused the optimal
+number of cabs to always be 1, and we fixed it by subtracting the same L
+from the cost.
+
+This is not a formal proof, but since the problem was only found in the
+implementation, we have recreated the results of the mistake below with
+the mistake=True flag - on graphs which we have already seen the best
+path for.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{n}{passengers} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+         \PY{n}{destination} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{a}\PY{p}{,} \PY{n}{paths} \PY{o}{=} \PY{n}{generate\PYZus{}graph}\PY{p}{(}\PY{n}{passengers}\PY{p}{,} \PY{n}{destination}\PY{p}{,} \PY{n}{mistake}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+         \PY{n}{draw\PYZus{}paths}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{paths}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Square Mistake}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cost-allocation-breaks_files/cost-allocation-breaks_34_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{n}{passengers} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{n}{min\PYZus{}x}\PY{p}{,}\PY{n}{max\PYZus{}x}\PY{p}{)}\PY{p}{,} 
+                        \PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{n}{min\PYZus{}y}\PY{p}{,}\PY{n}{max\PYZus{}y}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{]}
+         \PY{n}{destination} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{a}\PY{p}{,} \PY{n}{paths} \PY{o}{=} \PY{n}{generate\PYZus{}graph}\PY{p}{(}\PY{n}{passengers}\PY{p}{,} \PY{n}{destination}\PY{p}{,} \PY{n}{mistake}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+         \PY{n}{draw\PYZus{}paths}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{paths}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Random graph with mistake}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{cost-allocation-breaks_files/cost-allocation-breaks_35_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Unused work}
+
+We tried to make progress in calculating costs, but as the min cost max
+flow algorithm is not based on individual rationality, the output of
+optimal path need not satisy SIR. However, the following part of code
+can be used to verify if the resultant path is SIR compliant or not.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{k}{def} \PY{n+nf}{operational\PYZus{}cost}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{route}\PY{p}{,} \PY{n}{meter\PYZus{}fare} \PY{o}{=} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{:}
+             \PY{n}{oc} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{oc\PYZus{}values} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{players\PYZus{}on\PYZus{}route} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{route}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{first} \PY{o}{=} \PY{n}{G}\PY{o}{.}\PY{n}{node}\PY{p}{[}\PY{n}{route}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}
+                 \PY{n}{second} \PY{o}{=} \PY{n}{G}\PY{o}{.}\PY{n}{node}\PY{p}{[}\PY{n}{route}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+                 \PY{n}{oc} \PY{o}{+}\PY{o}{=} \PY{n}{meter\PYZus{}fare}\PY{o}{*}\PY{p}{(}\PY{n}{distance}\PY{p}{(} \PY{p}{(}\PY{n}{first}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{first}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,} 
+                 \PY{p}{(}\PY{n}{second}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{second}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{p}{)} \PY{o}{/} \PY{n+nb}{float}\PY{p}{(}\PY{n}{players\PYZus{}on\PYZus{}route}\PY{p}{)} \PY{p}{)}
+                 \PY{n}{oc\PYZus{}values}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{distance}\PY{p}{(} \PY{p}{(}\PY{n}{first}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{first}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,} 
+                 \PY{p}{(}\PY{n}{second}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{second}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{p}{)} \PY{o}{/} \PY{n+nb}{float}\PY{p}{(}\PY{n}{players\PYZus{}on\PYZus{}route}\PY{p}{)} \PY{p}{)}\PY{p}{)}
+                 \PY{n}{players\PYZus{}on\PYZus{}route} \PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+             \PY{k}{return} \PY{n}{oc}
+             
+         \PY{k}{def} \PY{n+nf}{shared\PYZus{}cost\PYZus{}per\PYZus{}player}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{route}\PY{p}{,} \PY{n}{meter\PYZus{}fare}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{:}
+             \PY{n}{operational\PYZus{}costs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{inconvenience\PYZus{}costs} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{route}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{operational\PYZus{}costs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{operational\PYZus{}cost}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{route}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{p}{]}\PY{p}{,} 
+                                                           \PY{n}{meter\PYZus{}fare}\PY{p}{)}\PY{p}{)} 
+             
+             \PY{c+c1}{\PYZsh{}IC(i) is the inconvenience cost caused due to }
+             \PY{c+c1}{\PYZsh{} player(i) to other players}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{route}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{first} \PY{o}{=} \PY{n}{G}\PY{o}{.}\PY{n}{node}\PY{p}{[}\PY{n}{route}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+                 \PY{n}{second} \PY{o}{=} \PY{n}{G}\PY{o}{.}\PY{n}{node}\PY{p}{[}\PY{n}{route}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}
+                 \PY{n}{destination} \PY{o}{=} \PY{n}{G}\PY{o}{.}\PY{n}{node}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{destination}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+                 \PY{n}{new\PYZus{}distance} \PY{o}{=} \PY{p}{(}\PY{n}{distance}\PY{p}{(} \PY{p}{(}\PY{n}{first}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{first}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,} 
+                                          \PY{p}{(}\PY{n}{second}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{second}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{p}{)}\PY{o}{+}
+                                      \PY{n}{distance}\PY{p}{(} \PY{p}{(}\PY{n}{second}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{second}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,} 
+                                               \PY{p}{(}\PY{n}{destination}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                                                \PY{n}{destination}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{p}{)}\PY{p}{)}
+                 \PY{n}{original\PYZus{}distance} \PY{o}{=} \PY{n}{distance}\PY{p}{(} \PY{p}{(}\PY{n}{first}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{first}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,} 
+                                              \PY{p}{(}\PY{n}{destination}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                                               \PY{n}{destination}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{p}{)}
+                 
+                 \PY{n}{inconvenience\PYZus{}costs}\PY{o}{.}\PY{n}{append}\PY{p}{(}
+                     \PY{p}{(}\PY{n}{new\PYZus{}distance}\PY{o}{\PYZhy{}}\PY{n}{original\PYZus{}distance}\PY{p}{)}\PY{o}{*}\PY{n}{meter\PYZus{}fare}\PY{p}{)}
+             
+             \PY{n}{total\PYZus{}cost} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{route}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{total\PYZus{}cost}\PY{o}{.}\PY{n}{append}\PY{p}{(}
+                     \PY{n}{operational\PYZus{}costs}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{+}\PY{n}{i}\PY{o}{*}\PY{n}{inconvenience\PYZus{}costs}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{total\PYZus{}cost}
+             
+         \PY{k}{def} \PY{n+nf}{original\PYZus{}cost\PYZus{}per\PYZus{}player}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{meter\PYZus{}fare}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{:}
+             \PY{n}{costs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{players} \PY{o}{=} \PY{p}{[}\PY{n}{n} \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n}{G}\PY{o}{.}\PY{n}{nodes}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)} 
+                        \PY{k}{if} \PY{n}{n}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{passenger in}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{destination} \PY{o}{=} \PY{n}{G}\PY{o}{.}\PY{n}{node}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{destination}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+             \PY{k}{for} \PY{n}{player} \PY{o+ow}{in} \PY{n}{players}\PY{p}{:}
+                 \PY{n}{costs}\PY{o}{.}\PY{n}{append}\PY{p}{(}
+                     \PY{n}{meter\PYZus{}fare}\PY{o}{*}\PY{p}{(}\PY{n}{distance}\PY{p}{(}\PY{p}{(}\PY{n}{player}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{player}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,} 
+                                 \PY{p}{(}\PY{n}{destination}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{destination}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{costs}
+\end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
