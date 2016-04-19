@@ -76,7 +76,7 @@ int  main()
     cab2[1].y = 0;
     cab2[2].y = -1;
 
-    d.x = 0;
+    d.x = 2;
     d.y = 0;
 
     /* Optimal Cost
@@ -90,7 +90,7 @@ int  main()
    for ( i = 0; i < n1 ; i++) {
      
        if (i != n1 ) {
-           distance = sqrt((cab1[i].x - cab1[i+1].x) * (cab1[i].x - cab1[i+1].x) + (cab1[i].y - cab1[i].y) *(cab1[i].y - cab1[i + 1].y));
+           distance = sqrt((cab1[i].x - cab1[i+1].x) * (cab1[i].x - cab1[i+1].x) + (cab1[i].y - cab1[i + 1].y) *(cab1[i].y - cab1[i + 1].y));
            totald1[i] = distance / (i + 1);
         }
 
@@ -116,7 +116,7 @@ int  main()
       
 
        if (i != (n2 - 1)) {
-           distance = sqrt((cab2[i].x - cab2[i+1].x) * (cab2[i].x - cab2[i+1].x) + (cab2[i].y - cab2[i].y) *(cab2[i].y - cab2[i + 1].y));
+           distance = sqrt((cab2[i].x - cab2[i+1].x) * (cab2[i].x - cab2[i+1].x) + (cab2[i].y - cab2[i + 1].y) * (cab2[i].y - cab2[i + 1].y));
            totald2[i] = distance / (i + 1);
         }
 
@@ -143,23 +143,24 @@ int  main()
    irDist1[0] = 0;
    irDist2[0] = 0;
    
-for ( i = 0; i < (n1 - 1); i++) {
-         de1 = sqrt((cab1[i].x - cab1[i+1].x) * (cab1[i].x - cab1[i+1].x) + (cab1[i].y - cab1[i].y) *(cab1[i].y - cab1[i + 1].y));
+   for ( i = 0; i < (n1 - 1); i++) {
+           de1 = sqrt((cab1[i].x - cab1[i+1].x) * (cab1[i].x - cab1[i+1].x) + (cab1[i].y - cab1[i + 1].y) * (cab1[i].y - cab1[i + 1].y));
            de2 = sqrt((cab1[i + 1].x - d.x) * (cab1[i + 1].x - d.x) + (cab1[i + 1].y - d.y) * (cab1[i + 1].y - d.y));
            del[i] = sqrt((cab1[i].x - d.x) * (cab1[i].x - d.x) + (cab1[i].y - d.y) * (cab1[i].y - d.y));
-           irDist1[i + 1] = alpha * (de1 + de2 - del[i]); 
-
-
+           irDist1[i + 1] = alpha * (de1 + de2 - del[i]);
    }
+   
+   irDist1[n1 - 1] = sqrt((cab1[n1 - 1].x - d.x) * (cab1[n1 -1].x - d.x) + (cab1[n1 - 1].y - d.y) * (cab1[n1 - 1].y - d.y));
 
-   for ( i = 0; i < (n2 - 1); i++) {
-      
-           de1 = sqrt((cab2[i].x - cab2[i+1].x) * (cab2[i].x - cab2[i+1].x) + (cab2[i].y - cab2[i].y) *(cab2[i].y - cab2[i + 1].y));
+   for ( i = 0; i < (n2 - 1); i++) { 
+           de1 = sqrt((cab2[i].x - cab2[i+1].x) * (cab2[i].x - cab2[i+1].x) + (cab2[i].y - cab2[i + 1].y) *(cab2[i].y - cab2[i + 1].y));
            de2 = sqrt((cab2[i + 1].x - d.x) * (cab2[i + 1].x - d.x) + (cab2[i + 1].y - d.y) * (cab2[i + 1].y - d.y));
            de2l[i] = sqrt((cab2[i].x - d.x) * (cab2[i].x - d.x) + (cab2[i].y - d.y) * (cab2[i].y - d.y));
            irDist2[i] = alpha * (de1 + de2 - de2l[i]); 
-          
-      }
+   }
+   
+   irDist2[n2 - 1] = sqrt((cab2[n2 - 1].x - d.x) * (cab2[n2 -1].x - d.x) + (cab2[n2 - 1].y - d.y) * (cab2[n2 - 1].y - d.y));
+
 
 /* IR completes  */
 
@@ -182,14 +183,15 @@ for (i = 0; i < n2 ; i++) {
 }
 
 C1 = 1;
+C2 = 1;
 
 // Sir Constrints 
 for ( i=0;i<n1;i++) {
-        C1 = (C1 && (del[i] >= costd1[i]));
+        C1 = (C1 && ((alpha  * del[i]) >= totalCost1[i]));
 }
 
 for ( i=0;i<n1;i++) {
-    C2 = (C2 && (de2l[i] >= costd2[i])) ;
+    C2 = (C2 && ((alpha * de2l[i]) >= totalCost2[i])) ;
  }
 
 __CPROVER_assert(!(C1 && C2) , "Cost distribution exists for the current path");  

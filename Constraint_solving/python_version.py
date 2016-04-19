@@ -88,7 +88,8 @@ def main():
 		de2 = distance ( cab1[i + 1][0], cab1[i + 1][1] , d[0] ,d[1])
 		dell[i] = distance( cab1[i][0] , cab1[i][1] , d[0] , d[1])
 		irDist1[i + 1] = alpha * (de1 + de2 - dell[i])
-        dell[n1-1] = distance(cab1[n1-1][0] , cab1[n1-1][1] , d[0],d[1])
+    
+    dell[n1-1] = distance(cab1[n1-1][0] , cab1[n1-1][1] , d[0],d[1])
 	# IR Cost for cab 2
 	irDist2[0] = 0;
 
@@ -97,7 +98,8 @@ def main():
 		de2 = distance ( cab2[i + 1][0], cab2[i + 1][1] , d[0] ,d[1])
 		de2l[i] = distance( cab2[i][0] , cab2[i][1] , d[0] , d[1])
 		irDist2[i + 1] = alpha * (de1 + de2 - de2l[i])
-        de2l[n2-1] = distance(cab2[n2-1][0] , cab2[n2-1][1] , d[0],d[1])
+    
+    de2l[n2-1] = distance(cab2[n2-1][0] , cab2[n2-1][1] , d[0],d[1])
 
 
 	for i in range(n1):
