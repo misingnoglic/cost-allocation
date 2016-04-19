@@ -140,6 +140,9 @@ int  main()
 
  /* Optimal Cost Ends */
 
+
+/* Indivisual rationality Calculation */
+
    irDist1[0] = 0;
    irDist2[0] = 0;
    
